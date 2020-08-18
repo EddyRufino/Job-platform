@@ -22,7 +22,7 @@
 <body class="bg-gray-200 min-h-screen leading-none">
     <div id="app">
         <nav class="bg-gray-800 shadow-md">
-            <div class="container mx-auto md:px-0 py-3">
+            <div class="container mx-auto px-2 md:px-0 py-3">
                 <div class="flex items-center justify-around">
                     <a class="text-2xl text-white" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
@@ -43,7 +43,7 @@
                                 
                             @endif
                         @else
-                            <span class="text-gray-300 text-sm pr-4">
+                            <span class="text-white text-gray-300 text-md pr-4">
                                 {{ Auth::user()->name }}
                             </span>
 

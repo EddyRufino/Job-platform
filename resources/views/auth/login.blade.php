@@ -3,10 +3,11 @@
 @section('content')
     <div class="container pt-24 mx-auto">
         <div class="flex flex-wrap justify-center">
+            
             <div class="w-full max-w-sm">
                 <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
 
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
+                    <div class="font-semibold bg-gray-300 text-gray-700 py-3 px-6 mb-0">
                         {{ __('Login') }}
                     </div>
 
@@ -18,10 +19,10 @@
                                 {{ __('E-Mail Address') }}:
                             </label>
 
-                            <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" class="form-input w-full bg-gray-200 p-2 rounded @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
-                                <p class="text-red-500 text-xs italic mt-4">
+                                <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                                     {{ $message }}
                                 </p>
                             @enderror
@@ -32,10 +33,10 @@
                                 {{ __('Password') }}:
                             </label>
 
-                            <input id="password" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password" required>
+                            <input id="password" type="password" class="form-input w-full bg-gray-200 p-2 rounded @error('password') border-red-500 @enderror" name="password" required>
 
                             @error('password')
-                                <p class="text-red-500 text-xs italic mt-4">
+                                <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                                     {{ $message }}
                                 </p>
                             @enderror
@@ -72,6 +73,7 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
