@@ -29,10 +29,6 @@
                     </a>
 
                     <nav class="flex-1 text-right">
-                        <!-- Left Side Of Navbar -->
-
-                        <!-- Right Side Of Navbar -->
-
                         <!-- Authentication Links -->
                         @guest
                             <a class="text-white no-underline hover:underline hover:text-gray-300 p-3" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -63,6 +59,12 @@
                 </div>
             </div>
         </nav>
+
+        <div class="bg-gray-700">
+            <nav class="container mx-auto flex space-x-1">
+                @yield('nav')
+            </nav>
+        </div>
 
         <main class="py-4">
             @yield('content')
