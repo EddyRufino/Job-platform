@@ -2,6 +2,8 @@
 
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css" integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw==" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" integrity="sha512-3g+prZHHfmnvE1HBLwUnVuunaPOob7dpksI7/v6UnF/rnKGwHf/GdEq9K7iEN7qTtW+S0iivTcGpeTBqqB04wA==" crossorigin="anonymous" />
 @endsection
 
 @section('nav')
@@ -134,6 +136,23 @@
                     @enderror
                 </div>
 
+                <div class="flex flex-wrap mb-6">
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
+                        Imagenes del puesto:
+                    </label>
+
+                    <div id="dropzone" class="dropzone form-input w-full bg-gray-200 p-2 rounded">
+                    </div>
+
+                    <p id="error"></p>
+
+                    {{-- @error('description')
+                        <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror --}}
+                </div>
+
 
                 <div class="flex flex-wrap items-center">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -152,8 +171,13 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js" integrity="sha512-9WciDs0XP20sojTJ9E7mChDXy6pcO0qHpwbEJID1YVavz2H6QBz5eLoDD8lseZOb2yGT8xDNIV7HIe1ZbuiDWg==" crossorigin="anonymous"></script>
+
     <script>
+        Dropzone.autoDiscover = false;
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Medium Editor
             const editor = new MediumEditor('.editable', {
                 toolbar: {
                     buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'h2', 'h3', 'pre'],
@@ -169,6 +193,32 @@
                 const contenido = editor.getContent();
                 document.querySelector('#description').value = contenido;
             })
+
+            // Dropzone
+            const dropzone = new Dropzone('.dropzone', {
+                url: '/vacantes/image',
+                acceptedFiles: 'image/*',
+                paramName: 'photo',
+                maxFilesize: 2,
+                addRemoveLinks: true,
+                dictRemoveFile: 'Borrar',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                dictDefaultMessage: 'Arrastra aquí tus images',
+
+                success: function(file, response) {
+                    document.querySelector('#error').textContent = '';
+                },
+                error: function(file, response) {
+                    document.querySelector('#error').textContent = 'Formato no válido.';
+                },
+                maxfilesexceeded: function(file, response) {
+                    document.querySelector('#error').textContent = 'Muchos archivos.';
+                },
+            })
         })
     </script>
+
+
 @endsection

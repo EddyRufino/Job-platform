@@ -55,4 +55,9 @@ class VacancyController extends Controller
     {
         //
     }
+
+    public function image(Request $request)
+    {
+        return 'subiendo imagen';
+    }
 }
