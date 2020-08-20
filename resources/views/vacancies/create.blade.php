@@ -73,6 +73,47 @@
                 </div>
 
 
+                <div class="flex flex-wrap mb-6">
+                    <label for="location" class="block text-gray-700 text-sm font-bold mb-2">
+                        Ubicación:
+                    </label>
+
+                    <select id="location" name="location" 
+                        class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
+                        <option value="">Selecciona</option>
+                        @foreach ($locations as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('location')
+                        <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <div class="flex flex-wrap mb-6">
+                    <label for="salary" class="block text-gray-700 text-sm font-bold mb-2">
+                        Salario:
+                    </label>
+
+                    <select id="salary" name="salary" 
+                        class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
+                        <option value="">Selecciona</option>
+                        @foreach ($salaries as $salary)
+                            <option value="{{ $salary->id }}">{{ $salary->name }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('salary')
+                        <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+
 
               {{--   <div class="flex flex-wrap mb-6">
                     <label for="password" class="block text-gray-700 text-sm font-bold mb-2">

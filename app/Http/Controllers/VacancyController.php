@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Salary;
 use App\Vacancy;
 use App\Category;
+use App\Location;
 use App\Experience;
 use Illuminate\Http\Request;
 
@@ -24,6 +26,8 @@ class VacancyController extends Controller
         return view('vacancies.create', [
             'categories' => Category::all(),
             'experiences' => Experience::all(),
+            'locations' => Location::all(),
+            'salaries' => Salary::all(),
         ]);
     }
 
