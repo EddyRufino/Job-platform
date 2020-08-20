@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css" integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw==" crossorigin="anonymous" />
+@endsection
+
 @section('nav')
 	@include('partials.navBar-admin')
 @endsection
@@ -113,21 +117,22 @@
                     @enderror
                 </div>
 
-
-
-              {{--   <div class="flex flex-wrap mb-6">
-                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
-                        {{ __('Password') }}:
+                <div class="flex flex-wrap mb-6">
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
+                        Descripción del puesto:
                     </label>
 
-                    <input id="password" type="password" class="form-input w-full bg-gray-200 p-2 rounded @error('password') border-red-500 @enderror" name="password" required>
+                    <div class="editable form-input w-full bg-gray-200 p-2 rounded">
+                    </div>
 
-                    @error('password')
+                    <input type="hidden" name="description" id="description">
+
+                    @error('description')
                         <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                             {{ $message }}
                         </p>
                     @enderror
-                </div> --}}
+                </div>
 
 
                 <div class="flex flex-wrap items-center">
@@ -142,4 +147,28 @@
     </div>
 
 </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editor = new MediumEditor('.editable', {
+                toolbar: {
+                    buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'h2', 'h3', 'pre'],
+                    static: true,
+                    sticky: true
+                },
+                placeholder: {
+                    text: 'Información de la vacante'
+                }
+            });
+
+            editor.subscribe('editableInput', function(eventObj, editable) {
+                const contenido = editor.getContent();
+                document.querySelector('#description').value = contenido;
+            })
+        })
+    </script>
 @endsection

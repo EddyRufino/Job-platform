@@ -15,7 +15,7 @@ class CreateVacanciesTable extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            // $table->string('name');
+            $table->mediumText('description');
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('experience_id')->constrained('experiences');
             $table->foreignId('location_id')->constrained('locations');
