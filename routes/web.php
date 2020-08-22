@@ -7,7 +7,9 @@ Route::get('/', function () {
 });
 
 Route::resource('vacantes', 'VacancyController');
-Route::post('vacantes/image', 'VacancyController@image')->name('vacantes.image');
+Route::post('vacantes/{image}', 'PhotoController@store');
+
+// Route::post('vacantes/{image}', 'VacancyController@image');
 
 Auth::routes(['verify' => true]);
 

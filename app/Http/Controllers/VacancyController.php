@@ -33,7 +33,8 @@ class VacancyController extends Controller
 
     public function store(Request $request)
     {
-        //
+        Vacancy::create($request->all());
+        return 'xD';
     }
 
     public function show(Vacancy $vacancy)
@@ -58,6 +59,10 @@ class VacancyController extends Controller
 
     public function image(Request $request)
     {
-        return 'subiendo imagen';
+        $image = $request->file('file');
+        return $image;
+        // $nameImage = time() . '.' . $image->extension();
+        // $image->move(public_path('storage/vacantes'), $nameImage);
+        // return response()->json(['correcto' => $nameImage]);
     }
 }

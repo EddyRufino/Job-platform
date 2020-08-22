@@ -21,7 +21,7 @@
                 Nueva vacante
             </div>
 
-            <form class="w-full p-6" method="POST" action="">
+            <form class="w-full p-6" method="POST" action="{{ route('vacantes.store') }}">
                 @csrf
 
                 <div class="flex flex-wrap mb-6">
@@ -39,11 +39,11 @@
                 </div>
 
                 <div class="flex flex-wrap mb-6">
-                    <label for="category" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="category_id" class="block text-gray-700 text-sm font-bold mb-2">
                         Categoría:
                     </label>
 
-                    <select id="category" name="category" 
+                    <select id="category_id" name="category_id" 
                     	class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
                     	<option value="">Selecciona</option>
                     	@foreach ($categories as $category)
@@ -51,7 +51,7 @@
                     	@endforeach
                     </select>
 
-                    @error('category')
+                    @error('category_id')
                         <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                             {{ $message }}
                         </p>
@@ -59,11 +59,11 @@
                 </div>
 
                 <div class="flex flex-wrap mb-6">
-                    <label for="category" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="experience_id" class="block text-gray-700 text-sm font-bold mb-2">
                         Experiencia:
                     </label>
 
-                    <select id="category" name="category" 
+                    <select id="experience_id" name="experience_id" 
                     	class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
                     	<option value="">Selecciona</option>
                     	@foreach ($experiences as $experience)
@@ -71,7 +71,7 @@
                     	@endforeach
                     </select>
 
-                    @error('category')
+                    @error('experience_id')
                         <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                             {{ $message }}
                         </p>
@@ -80,11 +80,11 @@
 
 
                 <div class="flex flex-wrap mb-6">
-                    <label for="location" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="location_id" class="block text-gray-700 text-sm font-bold mb-2">
                         Ubicación:
                     </label>
 
-                    <select id="location" name="location" 
+                    <select id="location_id" name="location_id" 
                         class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
                         <option value="">Selecciona</option>
                         @foreach ($locations as $location)
@@ -92,7 +92,7 @@
                         @endforeach
                     </select>
 
-                    @error('location')
+                    @error('location_id')
                         <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                             {{ $message }}
                         </p>
@@ -100,11 +100,11 @@
                 </div>
 
                 <div class="flex flex-wrap mb-6">
-                    <label for="salary" class="block text-gray-700 text-sm font-bold mb-2">
+                    <label for="salary_id" class="block text-gray-700 text-sm font-bold mb-2">
                         Salario:
                     </label>
 
-                    <select id="salary" name="salary" 
+                    <select id="salary_id" name="salary_id" 
                         class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
                         <option value="">Selecciona</option>
                         @foreach ($salaries as $salary)
@@ -112,7 +112,7 @@
                         @endforeach
                     </select>
 
-                    @error('salary')
+                    @error('salary_id')
                         <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
                             {{ $message }}
                         </p>
@@ -136,23 +136,24 @@
                     @enderror
                 </div>
 
-                <div class="flex flex-wrap mb-6">
+                {{-- <div class="flex flex-wrap mb-6">
                     <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
                         Imagenes del puesto:
                     </label>
 
-                    <div id="dropzone" class="dropzone form-input w-full bg-gray-200 p-2 rounded">
+                    <div name="image" id="dropzone" class="dropzone form-input w-full bg-gray-200 p-2 rounded">
                     </div>
 
                     <p id="error"></p>
+                </div> --}}
 
-                    {{-- @error('description')
-                        <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
-                            {{ $message }}
-                        </p>
-                    @enderror --}}
+
+                <div class="flex flex-wrap mb-6">
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
+                        Imagenes del puesto:
+                    </label>
+                    <div class="dropzone form-input w-full bg-gray-200 p-2 rounded"></div>
                 </div>
-
 
                 <div class="flex flex-wrap items-center">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -192,31 +193,72 @@
             editor.subscribe('editableInput', function(eventObj, editable) {
                 const contenido = editor.getContent();
                 document.querySelector('#description').value = contenido;
-            })
+            });
 
-            // Dropzone
-            const dropzone = new Dropzone('.dropzone', {
+
+            let myDropzone = new Dropzone('.dropzone', {
+                // url: '/vacantes/image',
                 url: '/vacantes/image',
                 acceptedFiles: 'image/*',
-                paramName: 'photo',
+                paramName: 'photo', // Cambia el nombre file a photo
                 maxFilesize: 2,
                 addRemoveLinks: true,
-                dictRemoveFile: 'Borrar',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 dictDefaultMessage: 'Arrastra aquí tus images',
+            });
 
-                success: function(file, response) {
-                    document.querySelector('#error').textContent = '';
-                },
-                error: function(file, response) {
-                    document.querySelector('#error').textContent = 'Formato no válido.';
-                },
-                maxfilesexceeded: function(file, response) {
-                    document.querySelector('#error').textContent = 'Muchos archivos.';
-                },
-            })
+            myDropzone.on('success', function(file, res) {
+                console.log(file);
+            });
+
+            myDropzone.on('error', function(file, res) {
+                console.log(res);
+                // let msg = res.photo[0];
+                // $('.dz-error-message:last > span').text(msg);
+            });
+
+            
+///////////////////////////////////////////////////////////////
+            // Dropzone
+            // let dropzone = new Dropzone('.dropzone', {
+            //     url: '/vacantes/image',
+            //     acceptedFiles: 'image/*',
+            //     paramName: 'image',
+            //     maxFilesize: 1,
+            //     addRemoveLinks: true,
+            //     dictRemoveFile: 'Borrar',
+            //     headers: {
+            //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //     },
+            //     dictDefaultMessage: 'Arrastra aquí tus images',
+
+                // error: function(file, res) {
+                //   // var msg = res.errors.photo[0];
+                //   document.querySelector('#error').textContent = 'Formato no válido.';
+                // },
+                // success: function(file, response) {
+                //     console.log('success', file.dataURL);
+                //     console.log(response);
+                //     document.querySelector('#error').textContent = '';
+                // },
+                // error: function(file, response) {
+                //     console.log('error',file);
+                //     console.log(response);
+                //     document.querySelector('#error').textContent = 'Formato no válido.';
+                // },
+                // maxfilesexceeded: function(file) {
+                //     console.log('error max',file);
+                //     if (this.files[1] != null) {
+                //         this.removeFile(this.files[0]); // Delete file anterior
+                //         this.addFile(file); // add new file
+                //     }
+                // },
+                // removeFile: function(file, response) {
+                //     console.log(file);
+                // }
+            // })
         })
     </script>
 
