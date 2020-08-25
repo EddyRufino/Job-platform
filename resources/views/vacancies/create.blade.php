@@ -22,7 +22,7 @@
                 Nueva vacante
             </div>
 
-            <form class="w-full p-6" method="POST" action="{{ route('vacantes.store') }}">
+            <form class="w-full p-6" method="POST" action="{{ route('vacancies.store') }}">
                 @csrf
 
                 <div class="flex flex-wrap mb-6">
@@ -163,12 +163,12 @@
                         Hábilidades:
                     </label>
 
-                    @php
+                    @{{-- php
                         $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
                     @endphp
 
                     <list-skills :skills="{{ json_encode($skills) }}">
-                    </list-skills>
+                    </list-skills> --}}
                 </div>
 
                 <div class="flex flex-wrap items-center">

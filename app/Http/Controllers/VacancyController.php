@@ -47,7 +47,13 @@ class VacancyController extends Controller
 
     public function edit(Vacancy $vacancy)
     {
-        return view('vacancies.edit', compact('vacancy'));
+        return view('vacancies.edit', [
+            'vacancy'     => $vacancy,
+            'categories'  => Category::all(),
+            'experiences' => Experience::all(),
+            'locations'   => Location::all(),
+            'salaries'    => Salary::all(),
+        ]);
     }
 
     public function update(Request $request, Vacancy $vacancy)
