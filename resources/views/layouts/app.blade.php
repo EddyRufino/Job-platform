@@ -60,18 +60,20 @@
                     </nav>
                 </div>
             </div>
-        </nav>
-
-        <div class="bg-gray-700">
-            <nav class="container mx-auto flex space-x-1">
-                @yield('nav')
-            </nav>
-        </div>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </nav>              
     </div>
+        
+    <div class="bg-gray-700">
+        <nav class="container mx-auto flex space-x-1">
+            @yield('nav')
+        </nav>
+    </div>
+
+    <main class="py-4">
+        @yield('content')
+    </main> 
+
+    @include('partials.modal')
 
     @yield('scripts')
 </body>

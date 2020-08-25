@@ -8,6 +8,7 @@
 
 @section('nav')
 	@include('partials.navBar-admin')
+
 @endsection
 
 @section('content')
@@ -136,23 +137,38 @@
                     @enderror
                 </div>
 
-                {{-- <div class="flex flex-wrap mb-6">
+{{--                 <div class="flex flex-wrap mb-6">
                     <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
                         Imagenes del puesto:
                     </label>
 
-                    <div name="image" id="dropzone" class="dropzone form-input w-full bg-gray-200 p-2 rounded">
+                    <div id="dropzone" class="dropzone form-input w-full bg-gray-200 p-2 rounded">
                     </div>
+
+                    <input type="hidden" name="image" id="image" />
 
                     <p id="error"></p>
                 </div> --}}
 
 
-                <div class="flex flex-wrap mb-6">
+{{--                 <div class="flex flex-wrap mb-6">
                     <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
                         Imagenes del puesto:
                     </label>
                     <div class="dropzone form-input w-full bg-gray-200 p-2 rounded"></div>
+                </div> --}}
+
+                <div class="flex flex-wrap mb-6">
+                    <label for="skills" class="block text-gray-700 text-sm font-bold mb-2">
+                        Hábilidades:
+                    </label>
+
+                    @php
+                        $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
+                    @endphp
+
+                    <list-skills :skills="{{ json_encode($skills) }}">
+                    </list-skills>
                 </div>
 
                 <div class="flex flex-wrap items-center">
@@ -196,28 +212,28 @@
             });
 
 
-            let myDropzone = new Dropzone('.dropzone', {
-                // url: '/vacantes/image',
-                url: '/vacantes/image',
-                acceptedFiles: 'image/*',
-                paramName: 'photo', // Cambia el nombre file a photo
-                maxFilesize: 2,
-                addRemoveLinks: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                dictDefaultMessage: 'Arrastra aquí tus images',
-            });
+            // let myDropzone = new Dropzone('.dropzone', {
+            //     // url: '/vacantes/image',
+            //     url: '/vacantes/image',
+            //     acceptedFiles: 'image/*',
+            //     paramName: 'photo', // Cambia el nombre file a photo
+            //     maxFilesize: 2,
+            //     addRemoveLinks: true,
+            //     headers: {
+            //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //     },
+            //     dictDefaultMessage: 'Arrastra aquí tus images',
+            // });
 
-            myDropzone.on('success', function(file, res) {
-                console.log(file);
-            });
+            // myDropzone.on('success', function(file, res) {
+            //     console.log(file);
+            // });
 
-            myDropzone.on('error', function(file, res) {
-                console.log(res);
-                // let msg = res.photo[0];
-                // $('.dz-error-message:last > span').text(msg);
-            });
+            // myDropzone.on('error', function(file, res) {
+            //     console.log(res);
+            //     // let msg = res.photo[0];
+            //     // $('.dz-error-message:last > span').text(msg);
+            // });
 
             
 ///////////////////////////////////////////////////////////////
@@ -225,8 +241,9 @@
             // let dropzone = new Dropzone('.dropzone', {
             //     url: '/vacantes/image',
             //     acceptedFiles: 'image/*',
-            //     paramName: 'image',
+            //     paramName: 'photo',
             //     maxFilesize: 1,
+            //     maxFile: 1,
             //     addRemoveLinks: true,
             //     dictRemoveFile: 'Borrar',
             //     headers: {
@@ -234,32 +251,46 @@
             //     },
             //     dictDefaultMessage: 'Arrastra aquí tus images',
 
-                // error: function(file, res) {
-                //   // var msg = res.errors.photo[0];
-                //   document.querySelector('#error').textContent = 'Formato no válido.';
-                // },
-                // success: function(file, response) {
-                //     console.log('success', file.dataURL);
-                //     console.log(response);
-                //     document.querySelector('#error').textContent = '';
-                // },
-                // error: function(file, response) {
-                //     console.log('error',file);
-                //     console.log(response);
-                //     document.querySelector('#error').textContent = 'Formato no válido.';
-                // },
-                // maxfilesexceeded: function(file) {
-                //     console.log('error max',file);
-                //     if (this.files[1] != null) {
-                //         this.removeFile(this.files[0]); // Delete file anterior
-                //         this.addFile(file); // add new file
-                //     }
-                // },
-                // removeFile: function(file, response) {
-                //     console.log(file);
-                // }
+            //     success: function(file, response) {
+            //         // console.log('success', file.dataURL);
+            //         console.log(response.correcto);
+            //         document.querySelector('#error').textContent = '';
+
+            //         // Coloca la respuesta en el servidor - input hidden
+            //         document.querySelector('#image').value = response.correcto;
+
+            //         // Añadir al objeto de archivo el nombre del servidor
+            //         file.nombreServidor = response.correcto;
+
+
+            //     },
+            //     error: function(file, response) {
+            //         // console.log('error',file);
+            //         // console.log(response);
+            //         document.querySelector('#error').textContent = 'Formato no válido.';
+            //     },
+            //     maxfilesexceeded: function(file) {
+            //         console.log('error max',file);
+            //         if (this.files[1] != null) {
+            //             this.removeFile(this.files[0]); // Delete file anterior
+            //             this.addFile(file); // add new file
+            //         }
+            //     },
+            //     removeFile: function(file, response) {
+            //         console.log(file);
+            //         console.log(response);
+
+            //         params = {
+            //             image : file.nombreServidor
+            //         };
+
+            //         axios.post('/vacantes/deleteimage', params)
+            //             .then(res => {
+            //                 console.log(res);
+            //             })
+            //     }
             // })
-        })
+        });
     </script>
 
 

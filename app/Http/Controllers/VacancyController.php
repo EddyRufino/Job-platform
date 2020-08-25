@@ -33,8 +33,11 @@ class VacancyController extends Controller
 
     public function store(Request $request)
     {
-        Vacancy::create($request->all());
-        return 'xD';
+        $this->validate($request, [ 'name' => 'required|min:3' ]);
+
+        $vacancy = Vacancy::create($request->all());
+
+        return redirect()->route('vacancies.edit', compact('vacancy'));
     }
 
     public function show(Vacancy $vacancy)
@@ -44,7 +47,7 @@ class VacancyController extends Controller
 
     public function edit(Vacancy $vacancy)
     {
-        //
+        return view('vacancies.edit', compact('vacancy'));
     }
 
     public function update(Request $request, Vacancy $vacancy)

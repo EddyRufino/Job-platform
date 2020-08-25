@@ -1,12 +1,10 @@
-<a href="{{ route('vacantes.index') }}"
+<a href="{{ route('vacancies.index') }}"
 	class="text-white text-sm uppercase font-bold p-3
-	{{ Request::routeIs('vacantes.index') ? 'bg-blue-600' : '' }}"
+	{{ Request::routeIs('vacancies.index') ? 'bg-blue-600' : '' }}"
 	>
 		Ver vacantes
 </a>
-<a href="{{ route('vacantes.create') }}"
-	class="text-white text-sm uppercase font-bold p-3
-	{{ Request::routeIs('vacantes.create') ? 'bg-blue-600' : '' }}"
-	>
+
+<a href="#" class="modal-open text-white text-sm uppercase font-bold p-3">
 		Nueva vacante
 </a>

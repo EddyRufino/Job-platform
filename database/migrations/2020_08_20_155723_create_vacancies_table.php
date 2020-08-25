@@ -16,12 +16,20 @@ class CreateVacanciesTable extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->mediumText('description');
-            $table->string('slug')->nullable();
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('experience_id')->constrained('experiences');
-            $table->foreignId('location_id')->constrained('locations');
-            $table->foreignId('salary_id')->constrained('salaries');
+            $table->mediumText('description')->nullable();
+            $table->string('slug');
+            $table->foreignId('category_id')
+                    ->nullable()
+                    ->constrained('categories');
+            $table->foreignId('experience_id')
+                    ->nullable()
+                    ->constrained('experiences');
+            $table->foreignId('location_id')
+                    ->nullable()
+                    ->constrained('locations');
+            $table->foreignId('salary_id')
+                    ->nullable()
+                    ->constrained('salaries');
             $table->timestamps();
         });
     }
