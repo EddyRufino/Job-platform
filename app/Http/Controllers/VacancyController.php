@@ -8,6 +8,7 @@ use App\Category;
 use App\Location;
 use App\Experience;
 use Illuminate\Http\Request;
+use App\Http\Requests\VacancyRequest;
 
 class VacancyController extends Controller
 {
@@ -21,15 +22,15 @@ class VacancyController extends Controller
         return view('vacancies.index');
     }
 
-    public function create()
-    {
-        return view('vacancies.create', [
-            'categories' => Category::all(),
-            'experiences' => Experience::all(),
-            'locations' => Location::all(),
-            'salaries' => Salary::all(),
-        ]);
-    }
+    // public function create()
+    // {
+    //     return view('vacancies.create', [
+    //         'categories' => Category::all(),
+    //         'experiences' => Experience::all(),
+    //         'locations' => Location::all(),
+    //         'salaries' => Salary::all(),
+    //     ]);
+    // }
 
     public function store(Request $request)
     {
@@ -56,9 +57,11 @@ class VacancyController extends Controller
         ]);
     }
 
-    public function update(Request $request, Vacancy $vacancy)
+    public function update(VacancyRequest $request, Vacancy $vacancy)
     {
-        //
+        // dd($request->all());
+        $vacancy->update($request->all());
+        return redirect()->route('vacancies.index');
     }
 
     public function destroy(Vacancy $vacancy)

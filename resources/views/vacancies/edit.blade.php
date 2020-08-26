@@ -21,8 +21,8 @@
                 Nueva vacante
             </div>
 
-            <form class="w-full p-6" method="POST" action="{{ route('vacancies.store') }}">
-                @csrf
+            <form class="w-full p-6" method="POST" action="{{ route('vacancies.update', $vacancy) }}">
+                @csrf @method('PUT')
 
                 <div class="flex flex-wrap mb-6">
                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
@@ -48,7 +48,11 @@
 	                    	class="block appearance-none w-full border border-gray-200 text-gray-700 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 p-3 bg-gray-200">
 	                    	<option value="">Selecciona</option>
 	                    	@foreach ($categories as $category)
-	                    		<option value="{{ $category->id }}">{{ $category->name }}</option>
+	                    		<option value="{{ $category->id }}"
+                                    {{ old('category_id', $vacancy->category_id) == $category->id ? 'selected' : '' }}
+                                    >
+                                    {{ $category->name }}
+                                </option>
 	                    	@endforeach
 	                    </select>
 
@@ -170,12 +174,15 @@
                 </div> --}}
 
 
-{{--                 <div class="flex flex-wrap mb-6">
+                <div class="flex flex-wrap mb-6">
                     <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
                         Imagenes del puesto:
                     </label>
+
                     <div class="dropzone form-input w-full bg-gray-200 p-2 rounded"></div>
-                </div> --}}
+
+                    <p id="error" class="hidden bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1"></p>
+                </div>
 
                 <div class="flex flex-wrap mb-6">
                     <label for="skills" class="block text-gray-700 text-sm font-bold mb-2">
@@ -236,27 +243,39 @@
             editor.setContent(document.querySelector('#description').value);
 
 
-            // let myDropzone = new Dropzone('.dropzone', {
-            //     // url: '/vacantes/image',
-            //     url: '/vacantes/image',
-            //     acceptedFiles: 'image/*',
-            //     paramName: 'photo', // Cambia el nombre file a photo
-            //     maxFilesize: 2,
-            //     addRemoveLinks: true,
-            //     headers: {
-            //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            //     },
-            //     dictDefaultMessage: 'Arrastra aquí tus images',
-            // });
+            let myDropzone = new Dropzone('.dropzone', {
+                url: '/vacancies/{{ $vacancy->slug }}/photos',
+                acceptedFiles: 'image/*',
+                paramName: 'photo', // Cambia el nombre file a photo
+                maxFilesize: 2,
+                maxFile: 1,
+                // addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                dictDefaultMessage: 'Arrastra aquí tus images',
+
+                error: function(file, res) {
+                    // console.log(res.errors.photo[0]);
+                    let msg = res.photo[0];
+                    let error = document.querySelector('#error');
+                    error.classList.remove('hidden');
+                    error.classList.add('block');
+                    error.textContent = msg;
+
+                }
+            });
 
             // myDropzone.on('success', function(file, res) {
             //     console.log(file);
             // });
 
+
+
             // myDropzone.on('error', function(file, res) {
-            //     console.log(res);
-            //     // let msg = res.photo[0];
-            //     // $('.dz-error-message:last > span').text(msg);
+                // console.log(res.errors.photo[0]);
+                // let msg = res.photo[0];
+                // $('.dz-error-message:last > span').text(msg);
             // });
 
             

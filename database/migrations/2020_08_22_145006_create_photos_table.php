@@ -15,7 +15,9 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('post_id')->nullable();
+            $table->foreignId('vacancy_id')
+                    ->nullable()
+                    ->constrained('vacancies');
             $table->string('url');
             $table->timestamps();
         });
