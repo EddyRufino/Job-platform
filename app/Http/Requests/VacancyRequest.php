@@ -24,13 +24,14 @@ class VacancyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|min:8',
+            'description' => 'required|min:8',
             'slug' => '',
             'category_id' => 'required',
             'experience_id' => 'required',
             'location_id' => 'required',
             'salary_id' => 'required',
+            'skills' => 'required',
         ];
     }
 }

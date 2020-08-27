@@ -185,16 +185,24 @@
                 </div>
 
                 <div class="flex flex-wrap mb-6">
-                    <label for="skills" class="block text-gray-700 text-sm font-bold mb-2">
-                        Hábilidades y conocimientos:
+                    <label for="skills" class="block text-gray-700 text-sm font-bold mb-5">
+                        Hábilidades y conocimientos: <span class="text-xs">(Elegir solo 3)</span>
                     </label>
 
                     @php
                         $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
                     @endphp
 
-                    <list-skills :skills="{{ json_encode($skills) }}">
+                    <list-skills
+                        :skills="{{ json_encode($skills) }}"
+                        :oldskills="{{ json_encode(old('skills')) }}">
                     </list-skills>
+
+                    @error('skills')
+                        <p class="bg-red-100 border-l-4 border-red-500 p-4 w-full text-red-500 text-xs italic mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <div class="flex flex-wrap items-center">

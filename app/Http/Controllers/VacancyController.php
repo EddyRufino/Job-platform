@@ -34,7 +34,7 @@ class VacancyController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [ 'name' => 'required|min:3' ]);
+        $this->validate($request, [ 'name' => 'required|min:8' ]);
 
         $vacancy = Vacancy::create($request->all());
 

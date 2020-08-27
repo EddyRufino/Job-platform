@@ -1908,6 +1908,22 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -1919,7 +1935,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['skills']
+  props: ['skills', 'oldskills'],
+  data: function data() {
+    return {
+      habilidades: new Set()
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.oldskills) {
+      var skillsArray = this.oldskills.split(',');
+      skillsArray.forEach(function (skill) {
+        return _this.habilidades.add(skill);
+      });
+    }
+  },
+  mounted: function mounted() {
+    document.querySelector('#skills').value = this.oldskills;
+  },
+  methods: {
+    chooseSkill: function chooseSkill(e) {
+      if (e.target.classList.contains('bg-teal-400')) {
+        e.target.classList.remove('bg-teal-400');
+        this.habilidades["delete"](e.target.textContent);
+      } else {
+        e.target.classList.add('bg-teal-400');
+        this.habilidades.add(e.target.textContent);
+      } // Agregar las skills al input
+
+
+      var stringHabilidades = _toConsumableArray(this.habilidades);
+
+      document.getElementById('skills').value = stringHabilidades;
+    },
+    verifyClassActive: function verifyClassActive(skill) {
+      return this.habilidades.has(skill) ? 'bg-teal-400' : '';
+    }
+  }
 });
 
 /***/ }),
@@ -37506,18 +37559,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ul",
-    { staticClass: "flex flex-wrap justify-center" },
-    _vm._l(_vm.skills, function(skill) {
-      return _c(
-        "li",
-        { staticClass: "border border-gray-500 px-10 py-3 md-3 m-1 rounded" },
-        [_vm._v("\n        " + _vm._s(skill) + "\n    ")]
-      )
-    }),
-    0
-  )
+  return _c("div", [
+    _c(
+      "ul",
+      { staticClass: "flex flex-wrap justify-center" },
+      _vm._l(_vm.skills, function(skill) {
+        return _c(
+          "li",
+          {
+            staticClass:
+              "border border-gray-500 px-10 py-3 md-3 m-1 rounded cursor-pointer",
+            class: _vm.verifyClassActive(skill),
+            on: {
+              click: function($event) {
+                return _vm.chooseSkill($event)
+              }
+            }
+          },
+          [_vm._v(_vm._s(skill))]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("input", { attrs: { type: "hidden", name: "skills", id: "skills" } })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
