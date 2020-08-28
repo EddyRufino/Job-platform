@@ -1952,6 +1952,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   mounted: function mounted() {
+    // Llena el input con las skills selecionadas antes de recargar la pagina
     document.querySelector('#skills').value = this.oldskills;
   },
   methods: {

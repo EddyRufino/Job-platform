@@ -27,6 +27,7 @@
             }
         },
         mounted: function() {
+            // Llena el input con las skills selecionadas antes de recargar la pagina
             document.querySelector('#skills').value = this.oldskills;
         },
         methods: {

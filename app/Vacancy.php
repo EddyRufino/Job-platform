@@ -24,4 +24,14 @@ class Vacancy extends Model
     {
     	return $this->hasMany(Photo::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

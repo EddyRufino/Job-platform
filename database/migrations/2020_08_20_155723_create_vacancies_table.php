@@ -17,7 +17,10 @@ class CreateVacanciesTable extends Migration
             $table->id();
             $table->string('name');
             $table->mediumText('description')->nullable();
+            $table->mediumText('skills')->nullable();
+            $table->boolean('active')->default(true);
             $table->string('slug');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('category_id')
                     ->nullable()
                     ->constrained('categories');

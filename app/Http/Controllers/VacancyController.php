@@ -19,7 +19,8 @@ class VacancyController extends Controller
 
     public function index()
     {
-        return view('vacancies.index');
+        $vacancies = Vacancy::where('user_id', auth()->id())->simplePaginate();
+        return view('vacancies.index', compact('vacancies'));
     }
 
     // public function create()
@@ -36,7 +37,11 @@ class VacancyController extends Controller
     {
         $this->validate($request, [ 'name' => 'required|min:8' ]);
 
-        $vacancy = Vacancy::create($request->all());
+        // $vacancy = Vacancy::create($request->all());
+        $vacancy = auth()->user()->vacancies()->create([
+            'name'    => $request->name,
+            'user_id' => auth()->id()
+        ]);
 
         return redirect()->route('vacancies.edit', compact('vacancy'));
     }
