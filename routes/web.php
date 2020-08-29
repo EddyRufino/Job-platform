@@ -8,11 +8,8 @@ Route::get('/', function () {
 
 Route::resource('vacancies', 'VacancyController');
 
-// Route::post('vacantes/{image}/photo', 'PhotoController@store');
 Route::post('vacancies/{vacancy}/photos', 'PhotoController@store');
 Route::post('vacantes/deleteimage', 'PhotoController@deleteimage');
-
-// Route::post('vacantes/{image}', 'VacancyController@image');
 
 Auth::routes(['verify' => true]);
 

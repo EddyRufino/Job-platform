@@ -14,7 +14,7 @@ class VacancyController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified'])->except('show');
     }
 
     public function index()
@@ -48,7 +48,7 @@ class VacancyController extends Controller
 
     public function show(Vacancy $vacancy)
     {
-        //
+        return view('vacancies.show', compact('vacancy'));
     }
 
     public function edit(Vacancy $vacancy)
