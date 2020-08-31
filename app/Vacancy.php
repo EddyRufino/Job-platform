@@ -49,4 +49,9 @@ class Vacancy extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function candidates()
+    {
+        return $this->hasMany(Candidate::class);
+    }
 }

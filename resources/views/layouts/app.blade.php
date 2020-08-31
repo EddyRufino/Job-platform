@@ -69,6 +69,12 @@
         </nav>
     </div>
 
+    @if (session('state'))
+        <div class="bg-teal-500 p-5 text-center text-white font-bold uppercase">
+            {{ session('state') }}
+        </div>
+    @endif
+
     <main id="app" class="mt-10 container mx-auto">
         @yield('content')
     </main> 
