@@ -15,9 +15,18 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // Obtener el id de la vacante
+        $vacancyID = $request->route('candidate');
+
+        // Obtener los candidatos y vacantes
+        $vacancy = Vacancy::findOrFail($vacancyID);
+
+        // No sé si es pndjo o inteligente, pero el pata está obteniendo el ID de la vacante para poder acceder a la relación y poder listar todos los candidatos de acuerdo al ID de la vacante.
+        // dd($vacancy->candidates);
+
+        return view('candidates.index', compact('vacancy'));
     }
 
     /**
@@ -41,13 +50,13 @@ class CandidateController extends Controller
 
         $candidate = new Candidate( $request->validated() );
 
-        $candidate->cv = $request->file('cv')->store('cv');
+        $candidate->cv = $request->file('cv')->store('cv', 'public');
 
         $candidate->save();
 
         $vacancy = Vacancy::find($request->get('vacancy_id'));
         $reclutador = $vacancy->user;
-        $reclutador->notify( new NewCandidate() );
+        $reclutador->notify( new NewCandidate($vacancy->name) );
 
         return back()->with('state', 'Hemos recibido tu CV.');
         
@@ -67,7 +76,7 @@ class CandidateController extends Controller
      */
     public function show(Candidate $candidate)
     {
-        //
+        
     }
 
     /**

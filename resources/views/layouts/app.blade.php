@@ -45,6 +45,12 @@
                                 {{ Auth::user()->name }}
                             </span>
 
+                            <a href="{{ route('notifications') }}"
+                                class="bg-teal-500 rounded-full px-2 py-1 font-bold text-sm text-white" 
+                            >
+                                {{ Auth::user()->unreadNotifications->count() }}
+                            </a>
+
                             <a class="text-white no-underline hover:underline hover:text-gray-300 p-3" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
