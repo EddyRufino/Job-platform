@@ -74,12 +74,22 @@ class VacancyController extends Controller
         //
     }
 
-    public function image(Request $request)
+    // public function image(Request $request)
+    // {
+    //     $image = $request->file('file');
+    //     return $image;
+    //     // $nameImage = time() . '.' . $image->extension();
+    //     // $image->move(public_path('storage/vacantes'), $nameImage);
+    //     // return response()->json(['correcto' => $nameImage]);
+    // }
+
+    public function state(Request $request, Vacancy $vacancy)
     {
-        $image = $request->file('file');
-        return $image;
-        // $nameImage = time() . '.' . $image->extension();
-        // $image->move(public_path('storage/vacantes'), $nameImage);
-        // return response()->json(['correcto' => $nameImage]);
+        $vacancy->active = $request->active; 
+        // $request->active viene desde VUEJS y $vacancy->active de Laravel(DB)
+        $vacancy->save();
+
+        return response()->json(['Respuesta' => 'Correcto']);
+        // return response()->json($request); // Usalo para saber que datos estas pasando
     }
 }

@@ -42,12 +42,15 @@
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                {{ $vacancy->active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}
-                "
-                >
-                {{ $vacancy->active ? 'Activo' : 'Desactivado' }}
-                </span>
+
+                  {{-- {{ $vacancy->active ? 'Activo' : 'Desactivado' }} --}}
+                  <state-vacancy
+                    state="{{ $vacancy->active }}"
+                    vacancy_id="{{ $vacancy->id }}"
+                    slug="{{ $vacancy->slug }}"
+                  >
+                  </state-vacancy>
+                
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                 {{-- ['id' => $vacancy->slug] --}}

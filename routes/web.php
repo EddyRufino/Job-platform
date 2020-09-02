@@ -11,6 +11,9 @@ Route::resource('vacancies', 'VacancyController');
 Route::post('vacancies/{vacancy}/photos', 'PhotoController@store');
 Route::post('vacantes/deleteimage', 'PhotoController@deleteimage');
 
+// Cambiar el estado de la vacante vía axios
+Route::post('vacancies/{vacancy}', 'VacancyController@state')->name('vacancies.state');
+
 // Lo puse separado porque el la url me salia como si buera un buscador "name?name=namename"
 Route::get('candidates/{candidate}', 'CandidateController@index')->name('candidates.index');
 Route::post('candidates', 'CandidateController@store')->name('candidates.store');
