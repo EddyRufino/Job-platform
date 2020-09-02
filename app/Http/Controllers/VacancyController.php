@@ -69,9 +69,14 @@ class VacancyController extends Controller
         return redirect()->route('vacancies.index');
     }
 
-    public function destroy(Vacancy $vacancy)
+    public function destroy(Request $request, Vacancy $vacancy)
     {
-        //
+        // $this->authorize('delete', $recipe);
+
+        $vacancy->delete();
+
+        // return redirect()->route('vacancies.index');
+        return response()->json(['message' => 'Se eliminó la vacante ' . $vacancy->name]);
     }
 
     // public function image(Request $request)

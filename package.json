@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "lightbox2": "^2.11.3",
-        "tailwindcss": "^1.6.2"
+        "tailwindcss": "^1.6.2",
+        "vue-sweetalert2": "^3.0.8"
     }
 }

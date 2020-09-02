@@ -28,11 +28,12 @@
 		},
 		methods: {
 			changeState() {
-				if(this.stateVacancy === 1) {
-					this.stateVacancy = 0;
-				} else {
-					this.stateVacancy = 1;
-				}
+				// if(this.stateVacancy === 1) {
+				// 	this.stateVacancy = 0;
+				// } else {
+				// 	this.stateVacancy = 1;
+				// }
+				this.stateVacancy === 1 ? this.stateVacancy = 0 : this.stateVacancy = 1;
 
 				const params = {
 					active: this.stateVacancy
