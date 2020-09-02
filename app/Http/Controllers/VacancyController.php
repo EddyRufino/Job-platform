@@ -53,6 +53,8 @@ class VacancyController extends Controller
 
     public function edit(Vacancy $vacancy)
     {
+        $this->authorize('view', $vacancy);
+
         return view('vacancies.edit', [
             'vacancy'     => $vacancy,
             'categories'  => Category::all(),
@@ -64,14 +66,16 @@ class VacancyController extends Controller
 
     public function update(VacancyRequest $request, Vacancy $vacancy)
     {
-        // dd($request->all());
+        $this->authorize('update', $vacancy);
+
         $vacancy->update($request->all());
+
         return redirect()->route('vacancies.index');
     }
 
     public function destroy(Request $request, Vacancy $vacancy)
     {
-        // $this->authorize('delete', $recipe);
+        $this->authorize('delete', $vacancy);
 
         $vacancy->delete();
 

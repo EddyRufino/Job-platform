@@ -195,7 +195,7 @@
 
                     <list-skills
                         :skills="{{ json_encode($skills) }}"
-                        :oldskills="{{ json_encode(old('skills')) }}">
+                        :oldskills="{{ json_encode(old('skills', $vacancy->skills)) }}">
                     </list-skills>
 
                     @error('skills')

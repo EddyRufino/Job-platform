@@ -23,6 +23,8 @@ class CandidateController extends Controller
         // Obtener los candidatos y vacantes
         $vacancy = Vacancy::findOrFail($vacancyID);
 
+        $this->authoriza('view', $vacancy);
+
         // No sé si es pndjo o inteligente, pero el pata está obteniendo el ID de la vacante para poder acceder a la relación y poder listar todos los candidatos de acuerdo al ID de la vacante.
         // dd($vacancy->candidates);
 
