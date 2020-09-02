@@ -11,7 +11,7 @@
 				<p class="mb-4">Email:
 					<span class="font-bold text-gray-700">{{ $candidate->email }}</span>
 				</p>
-				<a class="bg-teal-500 p-3 inline-block text-xs font-bold text-gray-700 rounded" 
+				<a class="bg-teal-500 p-3 inline-block text-xs font-bold rounded text-white" 
 					href="/storage/{{ $candidate->cv }}">
 				Ver CV</a>
 

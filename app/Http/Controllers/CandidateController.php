@@ -56,7 +56,7 @@ class CandidateController extends Controller
 
         $vacancy = Vacancy::find($request->get('vacancy_id'));
         $reclutador = $vacancy->user;
-        $reclutador->notify( new NewCandidate($vacancy->name) );
+        $reclutador->notify( new NewCandidate($vacancy->name, $vacancy->id) );
 
         return back()->with('state', 'Hemos recibido tu CV.');
         

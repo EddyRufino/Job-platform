@@ -17,8 +17,19 @@
 			<li class="p-5 border border-gray-400 mb-5">
 				<p class="mb-4">
 					Tienes un nuevo candidato en 
-					<span class="font-bold text-gray-700">{{ $data['vacancy'] }}</span>
+					<span class="font-bold text-gray-700">
+						{{ $data['vacancy'] }}
+					</span>
 				</p>
+				<p class="mb-4">
+					<span class="font-bold text-gray-700 txt-sm">
+						{{ $notify->created_at->diffForHumans() }}
+					</span>
+				</p>
+				<a href="{{ route('candidates.index', ['candidate' => $data['vacancyID']]) }}"
+					class="bg-teal-500 p-3 inline-block text-xs font-bold rounded text-white" 
+					>Ver Candidatos
+				</a>
 			</li>
 
 	
