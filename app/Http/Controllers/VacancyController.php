@@ -14,7 +14,7 @@ class VacancyController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except('show');
+        $this->middleware(['auth', 'verified'])->except('show', 'search', 'result');
     }
 
     public function index()
@@ -48,6 +48,8 @@ class VacancyController extends Controller
 
     public function show(Vacancy $vacancy)
     {
+        if ($vacancy->active === 0) return abort(404);
+
         return view('vacancies.show', compact('vacancy'));
     }
 
@@ -101,4 +103,29 @@ class VacancyController extends Controller
         return response()->json(['Respuesta' => 'Correcto']);
         // return response()->json($request); // Usalo para saber que datos estas pasando
     }
+
+    public function search(Request $request)
+    {
+        $data = $request->validate([
+            'category_id' => 'required',
+            'location_id' => 'required'
+        ]);
+
+        $category = $data['category_id'];
+        $location = $data['location_id'];
+
+        $vacancies = Vacancy::latest()
+            ->where('category_id', $category)
+            ->orWhere('location_id', $location)
+            ->get();
+
+        return view('search.index', compact('vacancies'));
+
+    }
+
+    public function result()
+    {
+        return 'xD';
+    }
 }
+

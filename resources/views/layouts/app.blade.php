@@ -14,7 +14,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
 
     @yield('styles')
 
@@ -70,7 +70,7 @@
     </div>
         
     <div class="bg-gray-700">
-        <nav class="container mx-auto flex space-x-1">
+        <nav class="container mx-auto flex flex-col md:flex-row space-x-1">
             @yield('nav')
         </nav>
     </div>

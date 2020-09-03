@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController');
 
+Auth::routes(['verify' => true]);
+
+Route::get('/vacancies/search', 'VacancyController@result')->name('vacancies.result'); // Si lo pongo abajo de 'vacancies' me sale 404 - ten en cuenta
+Route::post('/vacancies/search', 'VacancyController@search')->name('vacancies.search');
 Route::resource('vacancies', 'VacancyController');
+
+
 
 Route::post('vacancies/{vacancy}/photos', 'PhotoController@store');
 Route::post('vacantes/deleteimage', 'PhotoController@deleteimage');
@@ -21,6 +25,8 @@ Route::post('candidates', 'CandidateController@store')->name('candidates.store')
 
 Route::get('notifications', 'NotificationController')->name('notifications');
 
-Auth::routes(['verify' => true]);
+
+Route::get('categories/{category}', 'CategoryController@show')->name('categories.show');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
